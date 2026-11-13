@@ -25,10 +25,28 @@
 
         return $ping_validi;
     }
+    
+    //calcolaTempioMedio accetta un array di interi e restituisce un double (2 decimali)
+    function calcolaTempoMedio (&ping_validi){
+        $somma = 0;
+        $cont = 0;
+        $media = 0;
+
+        foreach ($ping_validi as $ping){
+            $somma += $ping;
+            $cont++;
+        }
+        $media =$somma / $cont;
+
+        return round($media, 2);
+    }
 
     //elaborazione dati back_end
     $ping_grezzi = [45, 120, -1, 32, 210, 85, -1, 18, 95, 310, 45, 60, -1, 150, 28, 240, 18, 72];
     array_push($ping_grezzi, 55, 190, 12);
+
+    $ping_validi = pacchettiValidi ($ping_grezzi);
+    $tempo_medio = calcolaTempoMedio ($ping_validi);
     
 ?>
 

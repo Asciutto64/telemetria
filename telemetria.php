@@ -5,7 +5,7 @@
     function contaPacchettiPersi($ping_grezzi){
         $pacchetti_persi = 0;
         
-        foreach ($ping_grezzi as $pacchetti_persi){
+        foreach ($ping_grezzi as $ping){
             if ($ping == -1){
                 $pacchetti_persi ++;
             }
@@ -27,7 +27,7 @@
     }
     
     //calcolaTempioMedio accetta un array di interi e restituisce un double (2 decimali)
-    function calcolaTempoMedio (&ping_validi){
+    function calcolaTempoMedio ($ping_validi){
         $somma = 0;
         $cont = 0;
         $media = 0;
@@ -47,7 +47,7 @@
         $max = $ping_validi[0];
 
 
-        foreach ( $ping_validi ad $ping){
+        foreach ( $ping_validi as $ping){
             if ($ping > $max) $max = $ping;
             if ($ping < $min) $min =$ping;
         }
@@ -59,11 +59,13 @@
     array_push($ping_grezzi, 55, 190, 12);
 
     $ping_validi = pacchettiValidi ($ping_grezzi);
+    $pacchetti_persi = contaPacchettiPersi($ping_grezzi);
     $tempo_medio = calcolaTempoMedio ($ping_validi);
 
     $ping_massimo = 0;
     $ping_minimo = 0;
     
+    calcolaMinMax($ping_validi, $ping_minimo, $ping_massimo);
 ?>
 
 
@@ -76,5 +78,13 @@
 </head>
 <body>
 
+    <ul>
+        <li>Totale rivelazione: <?php echo (count($ping_grezzi));   ?> </li>
+        <li>Pacchetti validi:   <?=  count ($ping_validi);          ?> </li>
+        <li>Pacchetti persi:    <?=  $pacchetti_persi;              ?></li>
+        <li>Media:              <?= $tempo_medio;                   ?> </li>
+        <li>minimo:             <?=  $ping_minimo;                  ?> </li>
+        <li>Massimo:            <?=  $ping_massimo;                  ?></li>
+    </ul>
 </body>
 </html>
